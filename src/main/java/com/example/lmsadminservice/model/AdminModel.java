@@ -6,6 +6,12 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/*
+ * Purpose : AdminModel are used to transfer the data into database
+ * Version : 1.0
+ * @author : Annu Kumari
+ * */
+
 @Data
 @Entity
 @Table(name = "admin")
@@ -28,7 +34,6 @@ public class AdminModel {
         this.lastName = adminDTO.getLastName();
         this.mobileNumber = adminDTO.getMobileNumber();
         this.emailId = adminDTO.getEmailId();
-        this.profilePath = adminDTO.getProfilePath();
         this.password = adminDTO.getPassword();
         this.status = adminDTO.getStatus();
 

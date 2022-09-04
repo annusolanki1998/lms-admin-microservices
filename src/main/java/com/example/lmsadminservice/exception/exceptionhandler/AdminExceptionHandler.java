@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class AdminExceptionHandler {
 
+    /*
+     * Purpose : AdminNotFoundException is used to handle the exceptions
+     * Version : 1.0
+     * @author : Annu kumari
+     * */
+
     @ExceptionHandler(AdminNotFoundException.class)
     public ResponseEntity<Response> handlerHiringException(AdminNotFoundException exception) {
         Response response = new Response();
@@ -19,6 +25,12 @@ public class AdminExceptionHandler {
         response.setMessage(exception.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    /*
+     * Purpose : MethodArgumentNotValidException is used to handle the exceptions
+     * Version : 1.0
+     * @author : Annu kumari
+     * */
 
 
     // Using custom exception for handling the error of validation part

@@ -22,6 +22,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*
+ * Purpose :Execute all REST Apis
+ * Version : 3.0
+ * @author : Annu Kumari
+ * @Visit Link :  http://localhost:8081/swagger-ui/
+ *
+ * */
+
 @Configuration
 
 public class SpringFoxConfig implements WebMvcConfigurer {
@@ -51,112 +59,9 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 
     @Bean
 
-    public Docket api() {
-
-        return new Docket(DocumentationType.SWAGGER_2)
-
-                .apiInfo(apiInfo())
-
-                .securityContexts(Arrays.asList(securityContext()))
-
-                .securitySchemes(Arrays.asList(apiKey()))
-
-                .select()
-
-                .apis(RequestHandlerSelectors.basePackage("com.example.lmsadminservice"))
-
-                .paths(PathSelectors.any())
-
-                .build()
-
-                .apiInfo(apiInfo());
-
-    }
-
-
-
-
-    private ApiKey apiKey() {
-
-        return new ApiKey(AUTHORIZATION_HEADER, "JWT", "header");
-
-    }
-
-
-
-
-    private SecurityContext securityContext() {
-
-        return SecurityContext.builder()
-
-                .securityReferences(defaultAuth())
-
-                .build();
-
-    }
-
-
-
-
-    List<SecurityReference> defaultAuth() {
-
-        AuthorizationScope authorizationScope
-
-                = new AuthorizationScope("global", "accessEverything");
-
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-
-        authorizationScopes[0] = authorizationScope;
-
-        return Arrays.asList(new SecurityReference(AUTHORIZATION_HEADER, authorizationScopes));
-
-    }
-
-   /*private ApiInfo getApiInfo() {
-
-       Contact contact = new Contact("Learner Management System", "http://bridgelabz.com&quot;,
-
-               "sunil.patil@bridgelabz.com");
-
-       return new ApiInfoBuilder().title("LMS Service Swagger API")
-
-               .description("LMS Service Swagger API for Learner Management System").version("0.0.1-SNAPSHOT")
-
-               .license("Apache 2.0").licenseUrl("http://www.apache.org/licenses/LICENSE-2.0").contact(contact)
-
-               .build();
-
-   }*/
-
-    private ApiInfo apiInfo() {
-
-        return new ApiInfo("Learner Management System",
-
-                "APIs for E.",
-
-                "1.0",
-
-                "Terms of service",
-
-                new Contact("Learner Management System", "http://bridgelabz.com&quot", "sunil.patil@bridgelabz.com"),
-
-        "Apache 2.0",
-
-                "http://www.apache.org/licenses/LICENSE-2.0&quot",
-
-        Collections.emptyList());
-
-    }
-
-
-
-    @Bean
-
     public static BeanPostProcessor springfoxHandlerProviderBeanPostProcessor() {
 
         return new BeanPostProcessor() {
-
-
 
 
             @Override
@@ -174,8 +79,6 @@ public class SpringFoxConfig implements WebMvcConfigurer {
             }
 
 
-
-
             private <T extends RequestMappingInfoHandlerMapping> void customizeSpringfoxHandlerMappings(List<T> mappings) {
 
                 List<T> copy = mappings.stream()
@@ -189,8 +92,6 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 mappings.addAll(copy);
 
             }
-
-
 
 
             @SuppressWarnings("unchecked")
@@ -217,6 +118,95 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 
     }
 
+    @Bean
+
+    public Docket api() {
+
+        return new Docket(DocumentationType.SWAGGER_2)
+
+                .apiInfo(apiInfo())
+
+                .securityContexts(Arrays.asList(securityContext()))
+
+                .securitySchemes(Arrays.asList(apiKey()))
+
+                .select()
+
+                .apis(RequestHandlerSelectors.basePackage("com.example.lmsadminservice"))
+
+                .paths(PathSelectors.any())
+
+                .build()
+
+                .apiInfo(apiInfo());
+
+    }
+
+    private ApiKey apiKey() {
+
+        return new ApiKey(AUTHORIZATION_HEADER, "JWT", "header");
+
+    }
+
+    private SecurityContext securityContext() {
+
+        return SecurityContext.builder()
+
+                .securityReferences(defaultAuth())
+
+                .build();
+
+    }
+
+   /*private ApiInfo getApiInfo() {
+
+       Contact contact = new Contact("Learner Management System", "http://bridgelabz.com&quot;,
+
+               "sunil.patil@bridgelabz.com");
+
+       return new ApiInfoBuilder().title("LMS Service Swagger API")
+
+               .description("LMS Service Swagger API for Learner Management System").version("0.0.1-SNAPSHOT")
+
+               .license("Apache 2.0").licenseUrl("http://www.apache.org/licenses/LICENSE-2.0").contact(contact)
+
+               .build();
+
+   }*/
+
+    List<SecurityReference> defaultAuth() {
+
+        AuthorizationScope authorizationScope
+
+                = new AuthorizationScope("global", "accessEverything");
+
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+
+        authorizationScopes[0] = authorizationScope;
+
+        return Arrays.asList(new SecurityReference(AUTHORIZATION_HEADER, authorizationScopes));
+
+    }
+
+    private ApiInfo apiInfo() {
+
+        return new ApiInfo("Learner Management System",
+
+                "APIs for E.",
+
+                "1.0",
+
+                "Terms of service",
+
+                new Contact("Learner Management System", "http://bridgelabz.com&quot", "sunil.patil@bridgelabz.com"),
+
+                "Apache 2.0",
+
+                "http://www.apache.org/licenses/LICENSE-2.0&quot",
+
+                Collections.emptyList());
+
+    }
 
 
 }
