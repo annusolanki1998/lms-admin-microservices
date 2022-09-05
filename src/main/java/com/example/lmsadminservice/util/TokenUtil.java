@@ -9,19 +9,25 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.Verification;
 import org.springframework.stereotype.Component;
 
+/**
+ * Purpose: Creating token util class
+ * @author: Annu kumari
+ * @Param:  create,decode
+ * Version: 1.0
+ */
+
 @Component
 public class TokenUtil {
     public final String TOKEN_SECRET = "LoginToken";
 
     /**
-     * create token
-     *
-     * @throws UnsupportedEncodingException
-     * @throws IllegalArgumentException
+     * Purpose: Creating method to create a token
+     * @author: Annu Kumari
+     * @Param: id
      */
+
     public String createToken(Long id) {
         try {
-            //to set algorithm
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
 
             String token = JWT.create()
@@ -30,33 +36,28 @@ public class TokenUtil {
             return token;
         } catch (JWTCreationException exception) {
             exception.printStackTrace();
-            //log Token Signing Failed
         } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
     }
 
-
     /**
-     * @param token
-     * @return
+     * Purpose: Creating method to decode a token
+     * @author: Annu Kumari
+     * @Param: token
      */
+
     public Long decodeToken(String token) {
         Long userid;
-        //for verification algorithm
         Verification verification = null;
         try {
             verification = JWT.require(Algorithm.HMAC256(TOKEN_SECRET));
         } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         JWTVerifier jwtverifier = verification.build();
-        //to decode token
         DecodedJWT decodedjwt = jwtverifier.verify(token);
-
         Claim claim = decodedjwt.getClaim("user_id");
         userid = claim.asLong();
         return userid;

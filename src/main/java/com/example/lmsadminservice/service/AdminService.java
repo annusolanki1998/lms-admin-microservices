@@ -14,6 +14,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Purpose: Creating service for admin
+ * @author: Annu Kumari
+ * @Param:  business logic is present here
+ * Version: 1.0
+ */
+
 @Service
 public class AdminService implements IAdminService {
     @Autowired
@@ -22,6 +29,12 @@ public class AdminService implements IAdminService {
     TokenUtil tokenUtil;
     @Autowired
     MailService mailService;
+
+    /**
+     * Purpose: Creating method to add admin details
+     * @author: Annu Kumari
+     * @Param: adminDto
+     */
 
     @Override
     public ResponseUtil addAdmin(AdminDTO adminDTO) {
@@ -33,6 +46,12 @@ public class AdminService implements IAdminService {
         mailService.send(adminModel.getEmailId(), subject, body);
         return new ResponseUtil(200, "Sucessfull", adminModel);
     }
+
+    /**
+     * Purpose: Creating method to update existing admin details
+     * @author: Annu Kumari
+     * @Param: adminDto,id and token
+     */
 
     @Override
     public ResponseUtil updateAdmin(Long id, AdminDTO adminDTO, String token) {
@@ -60,6 +79,12 @@ public class AdminService implements IAdminService {
         throw new AdminNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose: Creating method to get admin details
+     * @author: Annu Kumari
+     * @Param: token
+     */
+
 
     @Override
     public List<AdminModel> getAdmins(String token) {
@@ -75,6 +100,12 @@ public class AdminService implements IAdminService {
         }
         throw new AdminNotFoundException(400, "Token is wrong");
     }
+
+    /**
+     * Purpose: Creating method to delete existing admin details
+     * @author: Annu Kumari
+     * @Param: id and token
+     */
 
 
     @Override
@@ -92,6 +123,12 @@ public class AdminService implements IAdminService {
         }
         throw new AdminNotFoundException(400, "Token is wrong");
     }
+
+    /**
+     * Purpose: Creating method to get admin details
+     * @author: Annu Kumari
+     * @Param: id and token
+     */
 
 
     @Override
@@ -111,6 +148,12 @@ public class AdminService implements IAdminService {
 
     }
 
+    /**
+     * Purpose: Creating method to login
+     * @author: Annu Kumari
+     * @Param: emailId and password
+     */
+
     @Override
     public Response login(String emailId, String password) {
         Optional<AdminModel> isEmailPresent = adminRepository.findByEmailId(emailId);
@@ -124,6 +167,12 @@ public class AdminService implements IAdminService {
         throw new AdminNotFoundException(400, "No admin present");
     }
 
+    /**
+     * Purpose: Creating method to update password
+     * @author: Annu Kumari
+     * @Param: token and password
+     */
+
 
     @Override
     public ResponseUtil updatePassword(String token, String password) {
@@ -136,6 +185,12 @@ public class AdminService implements IAdminService {
         }
         throw new AdminNotFoundException(400, "Token is wrong");
     }
+
+    /**
+     * Purpose: Creating method to reset password
+     * @author: Annu Kumari
+     * @Param: emailId
+     */
 
     @Override
     public ResponseUtil resetPassword(String emailId) {
@@ -152,6 +207,12 @@ public class AdminService implements IAdminService {
 
     }
 
+    /**
+     * Purpose: Creating method to add profile path
+     * @author: Annu Kumari
+     * @Param: id,token and profilePath
+     */
+
 
     @Override
     public ResponseUtil addProfilePath(Long id, String token, String profilePath) {
@@ -163,6 +224,11 @@ public class AdminService implements IAdminService {
             throw new AdminNotFoundException(400, "Admin Not found with this id");
         }
     }
+    /**
+     * Purpose: Creating method to validate user
+     * @author: Annu Kumari
+     * @Param: token
+     */
 
 
     @Override

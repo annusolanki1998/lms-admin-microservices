@@ -9,6 +9,13 @@ import com.example.lmsadminservice.util.ResponseUtil;
 
 import java.util.List;
 
+/**
+ * Purpose: Creating Interface for Admin service
+ * @author: Annu Kumari
+ * @Param:   All service methods
+ * Version:  1.0
+ */
+
 public interface IAdminService {
 
 
